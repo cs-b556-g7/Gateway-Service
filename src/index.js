@@ -1,15 +1,32 @@
-import express from "express";
-import dotenv from "dotenv";
+// src/index.js
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
-dotenv.config({path:"./.env"});
+import authRoutes from './routes/authRoutes.js';
+
+dotenv.config({ path: './.env' });
+
 const app = express();
-const port = 3000;
 
+// ✅ Proper CORS setup
+app.use(cors({
+  origin: 'http://localhost:5173', // your frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
+// ✅ Don't need app.options('*', cors()) — already covered above
+
+// ✅ Body parsing middleware
 app.use(express.json());
 
-app.get("/" , (req , res)=>{
-    res.send("Email Service");
-});
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+// ✅ Routes
+app.use('/', authRoutes);
+
+// ✅ Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Gateway running at http://localhost:${PORT}`);
 });
