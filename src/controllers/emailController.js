@@ -16,7 +16,6 @@ export const forwardToEmailService = async (req, res) => {
         ...req.headers,
         host: new URL(EMAIL_SERVICE_URL).host,
       },
-      timeout: 5000,
     });
 
     res.status(response.status).json(response.data);

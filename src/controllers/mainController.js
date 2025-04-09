@@ -16,7 +16,6 @@ export const forwardToMainService = async (req, res) => {
         ...req.headers,
         host: new URL(MAIN_SERVICE_URL).host, // 🛠️ explicitly set downstream Host
       },
-      timeout: 5000,
     });
 
     res.status(response.status).json(response.data);
