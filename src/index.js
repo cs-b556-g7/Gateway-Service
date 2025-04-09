@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import morgan from "morgan";
-import requestLogger from "./middlewares/requestLogger.js";
+import requestLogger from "./middlewares/requestlogger.js";
 
 import authRoutes from "./routes/auth.js";
 import emailRoutes from "./routes/email.js";
