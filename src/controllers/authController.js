@@ -1,24 +1,22 @@
 import axios from "axios";
-import { AUTH_SERVICE_URL } from "../config";
 
 export const forwardToAuthService = async (req, res) => {
+  const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL;
+
+  if (!AUTH_SERVICE_URL) {
+    return res.status(500).json({ error: "AUTH_SERVICE_URL not configured" });
+  }
+
   try {
-    const url = `${AUTH_SERVICE_URL}${req.originalUrl}`;
     const response = await axios({
       method: req.method,
-      url,
+      url: `${AUTH_SERVICE_URL}${req.originalUrl}`,
       data: req.body,
       headers: { ...req.headers },
       timeout: 5000,
     });
     res.status(response.status).json(response.data);
   } catch (err) {
-    if (err.code === "ECONNABORTED") {
-      res.status(504).json({ error: "Request timed out. Please try again later." });
-    } else if (err.response) {
-      res.status(err.response.status).json({ error: err.response.data || "Service error" });
-    } else {
-      res.status(503).json({ error: "Service unreachable. Please try again later." });
-    }
+    res.status(err.response?.status || 500).json({ error: err.message });
   }
 };
