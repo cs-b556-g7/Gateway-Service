@@ -13,14 +13,15 @@ export const forwardToMainService = async (req, res) => {
       url: targetUrl,
       data: req.body,
       headers: {
-        ...req.headers,
+        'Content-Type': 'application/json',
         host: new URL(MAIN_SERVICE_URL).host, // 🛠️ explicitly set downstream Host
       },
     });
 
     res.status(response.status).json(response.data);
   } catch (err) {
-    console.error("❌ MAIN proxy error:", err.message);
-    res.status(err.response?.status || 500).json({ error: err.message });
+    res.status(err.response?.status || 500).json({
+        error: err.response?.data?.error || err.message || "Unknown error"
+      });
   }
 };

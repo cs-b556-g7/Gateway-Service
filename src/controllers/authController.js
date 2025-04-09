@@ -21,7 +21,9 @@ export const forwardToAuthService = async (req, res) => {
 
     res.status(response.status).json(response.data);
   } catch (err) {
-    console.error("❌ AUTH proxy error:", err.message);
-    res.status(err.response?.status || 500).json({ error: err.message });
+    res.status(err.response?.status || 500).json({
+        error: err.response?.data?.error || err.message || "Unknown error"
+      });
+      
   }
 };
