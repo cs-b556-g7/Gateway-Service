@@ -16,7 +16,7 @@ export const forwardToMainService = async (req, res) => {
     console.log("Forwarding to:", `${MAIN_SERVICE_URL}${path}`);
 
   } catch (err) {
-    console.log("Forwarding to:", `${MAIN_SERVICE_URL}${path}`);
+    console.error("Forwarding to:", `${MAIN_SERVICE_URL}${path}`);
 
     console.error("❌ MAIN proxy error:", err.message);
     res.status(err.response?.status || 500).json({ error: err.message });
