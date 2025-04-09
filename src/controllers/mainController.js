@@ -13,7 +13,11 @@ export const forwardToMainService = async (req, res) => {
       timeout: 5000,
     });
     res.status(response.status).json(response.data);
+    console.log("Forwarding to:", `${MAIN_SERVICE_URL}${path}`);
+
   } catch (err) {
+    console.log("Forwarding to:", `${MAIN_SERVICE_URL}${path}`);
+
     console.error("❌ MAIN proxy error:", err.message);
     res.status(err.response?.status || 500).json({ error: err.message });
   }
