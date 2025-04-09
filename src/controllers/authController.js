@@ -13,10 +13,10 @@ export const forwardToAuthService = async (req, res) => {
       url: targetUrl,
       data: req.body,
       headers: {
-        ...req.headers,
+        'Content-Type': 'application/json',
         host: new URL(AUTH_SERVICE_URL).host,
       },
-
+      timeout: 5000,
     });
 
     res.status(response.status).json(response.data);
