@@ -1,10 +1,10 @@
 import express from "express";
 import { forwardToMainService } from "../controllers/mainController.js";
-import logger from "../middlewares/logger.js";
+import requestLogger from "../middlewares/requestlogger.js";
 
 const router = express.Router();
 
-router.use(logger);
+router.use(requestLogger);
 router.all("/*", forwardToMainService);
 
 export default router;

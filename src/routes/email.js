@@ -1,10 +1,10 @@
 import express from "express";
 import { forwardToEmailService } from "../controllers/emailController.js";
-import logger from "../middlewares/logger.js";
+import requestLogger from "../middlewares/requestlogger.js";
 
 const router = express.Router();
 
-router.use(logger);
+router.use(requestLogger);
 router.all("/*", forwardToEmailService);
 
 export default router;
