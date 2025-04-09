@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_SERVICE_URL } from "../config/index.js";
+import { AUTH_SERVICE_URL } from "../config";
 
 export const forwardToAuthService = async (req, res) => {
   try {

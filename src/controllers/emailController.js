@@ -1,5 +1,5 @@
 import axios from "axios";
-import { EMAIL_SERVICE_URL } from "../config/index.js";
+import { EMAIL_SERVICE_URL } from "../config";
 
 export const forwardToEmailService = async (req, res) => {
   try {

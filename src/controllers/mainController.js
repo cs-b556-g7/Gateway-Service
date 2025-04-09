@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MAIN_SERVICE_URL } from "../config/index.js";
+import { MAIN_SERVICE_URL } from "../config";
 
 export const forwardToMainService = async (req, res) => {
   try {
