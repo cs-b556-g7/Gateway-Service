@@ -1,22 +1,36 @@
 // src/services/proxyServices.js
 import axios from 'axios';
 
-const AUTH_SERVICE_BASE_URL = 'http://localhost:5000'; // 🔁 Updated from 8000 to 5000
+const AUTH_SERVICE_BASE_URL = 'http://localhost:5001'; 
 
-export const proxyToAuthService = async (path, req) => {
+export const proxyToAuthService = async (path, req, methodOverride) => {
+  
   try {
+    const method = methodOverride || req.method.toLowerCase();
+    const fullUrl = method === 'get'
+      ? `${AUTH_SERVICE_BASE_URL}${req.originalUrl}`
+      : `${AUTH_SERVICE_BASE_URL}${path}`;
     const response = await axios({
-      method: req.method,
-      url: `${AUTH_SERVICE_BASE_URL}${path}`,
-      data: req.body,
+      method,
+      url: fullUrl,
       headers: {
-        'Content-Type': 'application/json',
+        ...req.headers,
+        host: undefined, // remove host header to avoid issues when proxying
       },
+      data: req.body,
     });
 
-    return response; // ✅ Gateway will forward this to frontend
+    return response;
   } catch (err) {
-    console.error("❌ Error proxying to Auth Service:", err?.response?.data || err.message);
+    // Log full details of the error for easier debugging
+    if (err.response) {
+      console.error("❌ Error proxying to Auth Service:");
+      console.error("Status:", err.response.status);
+      console.error("Data:", err.response.data);
+    } else {
+      console.error("❌ Error proxying to Auth Service:", err.message);
+    }
+
     throw err;
   }
 };
