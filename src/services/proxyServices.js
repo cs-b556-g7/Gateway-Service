@@ -1,15 +1,18 @@
 // src/services/proxyServices.js
 import axios from 'axios';
 
-const AUTH_SERVICE_BASE_URL = 'http://localhost:5001'; 
+
 
 export const proxyToAuthService = async (path, req, methodOverride) => {
+  const AUTH_SERVICE_BASE_URL = process.env.AUTH_SERVICE_URL;
   
   try {
     const method = methodOverride || req.method.toLowerCase();
     const fullUrl = method === 'get'
       ? `${AUTH_SERVICE_BASE_URL}${req.originalUrl}`
       : `${AUTH_SERVICE_BASE_URL}${path}`;
+    console.log("➡️ Proxying to:", fullUrl);
+
     const response = await axios({
       method,
       url: fullUrl,
