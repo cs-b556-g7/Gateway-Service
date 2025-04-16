@@ -10,7 +10,7 @@ import emailRoutes from "./routes/email.js";
 dotenv.config({ path: './.env' });
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Secure HTTP headers
 app.use(helmet());
@@ -28,7 +28,7 @@ app.use(express.json());
 
 // Route mounting
 app.use("/main", mainRoutes);
-app.use("/auth", authRoutes);
+app.use("/", authRoutes);
 app.use("/email", emailRoutes);
 
 // Health check
