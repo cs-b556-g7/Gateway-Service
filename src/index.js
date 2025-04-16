@@ -4,7 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 
 import mainRoutes from "./routes/main.js";
-import authRoutes from "./routes/auth.js";
+import authRoutes from "./routes/authRoutes.js";
 import emailRoutes from "./routes/email.js";
 
 dotenv.config({ path: './.env' });

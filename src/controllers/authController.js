@@ -1,4 +1,3 @@
-// src/controllers/authController.js
 import { proxyToAuthService } from '../services/proxyServices.js';
 
 export const register = async (req, res) => {
