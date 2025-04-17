@@ -4,7 +4,7 @@ import { login, register, verifyDuo, duoRedirect } from '../controllers/authCont
 const router = express.Router();
 
 router.post('/login', login); 
-router.post('/register', register); 
+router.post('/register/user', register); 
 
 router.post('/duo/callback', verifyDuo); 
 router.get('/duo/callback', duoRedirect);
