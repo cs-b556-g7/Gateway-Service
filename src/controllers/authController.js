@@ -38,7 +38,7 @@ export const verifyDuo = async (req, res) => {
 
 export const duoRedirect = async (req, res) => {
   try {
-    const duoRedirectUrl = `http://localhost:5173/duo/callback${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`;
+    const duoRedirectUrl = `https://blue-rock-0d2af4e10.6.azurestaticapps.net/duo/callback${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`;
     return res.redirect(duoRedirectUrl);
   } catch (error) {
     console.error("❌ Gateway Duo Redirect Error:", error?.response?.data || error.message);
