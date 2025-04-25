@@ -23,6 +23,8 @@ app.use(cors({
   credentials: true,
 }));
 
+app.use('/main/api/paymentWebhook', express.raw({ type: 'application/json' }));
+
 // JSON body parsing
 app.use(express.json());
 
