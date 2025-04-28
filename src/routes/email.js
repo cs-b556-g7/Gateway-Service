@@ -4,6 +4,6 @@ import requestLogger from "../middlewares/requestlogger.js";
 
 const router = express.Router();
 router.use(requestLogger);
-router.use("/", forwardToEmailService);
+router.use("/*", forwardToEmailService);
 
 export default router;

@@ -13,7 +13,7 @@ export const forwardToMainService = async (req, res) => {
       url: targetUrl,
       data: req.body,
       headers: {
-        'Content-Type': 'application/json',
+        ...req.headers,
         host: new URL(MAIN_SERVICE_URL).host,
       },
     });
