@@ -47,27 +47,3 @@ export const duoRedirect = async (req, res) => {
       .send(error?.response?.data || "Gateway Error");
   }
 };
-
-export const forgotPassword = async (req, res) => {
-  try {
-    const result = await proxyToAuthService('/forgot-password', req);
-    return res.status(result.status).json(result.data);
-  } catch (error) {
-    console.error("❌ Gateway Forgot Password Error:", error?.response?.data || error.message);
-    return res
-      .status(error?.response?.status || 500)
-      .json(error?.response?.data || { error: "Gateway Error" });
-  }
-};
-
-export const resetPassword = async (req, res) => {
-  try {
-    const result = await proxyToAuthService('/reset-password', req);
-    return res.status(result.status).json(result.data);
-  } catch (error) {
-    console.error("❌ Gateway Reset Password Error:", error?.response?.data || error.message);
-    return res
-      .status(error?.response?.status || 500)
-      .json(error?.response?.data || { error: "Gateway Error" });
-  }
-};
