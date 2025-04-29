@@ -71,3 +71,27 @@ export const resetPassword = async (req, res) => {
       .json(error?.response?.data || { error: "Gateway Error" });
   }
 };
+
+export const googleAuth = async (req, res) => {
+  try {
+    const authServiceUrl = `https://auth-service-latest-jd1q.onrender.com/google`;
+    return res.redirect(authServiceUrl);
+  } catch (error) {
+    console.error("❌ Gateway Google Auth Error:", error?.response?.data || error.message);
+    return res
+      .status(error?.response?.status || 500)
+      .send(error?.response?.data || "Gateway Error");
+  }
+};
+
+export const googleCallback = async (req, res) => {
+  try {
+    const authServiceCallbackUrl = `https://auth-service-latest-jd1q.onrender.com/google/callback${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`;
+    return res.redirect(authServiceCallbackUrl);
+  } catch (error) {
+    console.error("❌ Gateway Google Callback Error:", error?.response?.data || error.message);
+    return res
+      .status(error?.response?.status || 500)
+      .send(error?.response?.data || "Gateway Error");
+  }
+};
